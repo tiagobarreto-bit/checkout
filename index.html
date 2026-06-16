@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CheckOut · Páginas de produto de alta performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #111111;
+  --white: #ffffff;
+  --gray-50: #f4f4f2;
+  --gray-100: #e8e8e4;
+  --gray-400: #9a9a94;
+  --gray-600: #5a5a54;
+  --lime: #c8f000;
+  --lime-dark: #8aaa00;
+  --red: #d13030;
+  --red-light: #fdf0ee;
+  --amber: #c96b00;
+  --amber-light: #fef5ea;
+  --green: #1a6b3c;
+  --green-light: #edf6f1;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: var(--black);
+  background: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--gray-100);
+  padding: 0 24px;
+}
+.nav-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+.nav-logo {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.nav-logo .check-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: var(--lime);
+  border-radius: 50%;
+  margin-right: 1px;
+}
+.nav-logo .check-mark svg { width: 11px; height: 11px; }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.nav-links a {
+  font-size: 13px;
+  color: var(--gray-600);
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--black); }
+.nav-cta {
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--black);
+  color: var(--white) !important;
+  padding: 7px 16px;
+  border-radius: 6px;
+  transition: opacity 0.15s;
+}
+.nav-cta:hover { opacity: 0.78 !important; }
+
+/* ── HERO ── */
+.hero {
+  padding: 80px 24px 64px;
+  text-align: center;
+}
+.hero-inner { max-width: 680px; margin: 0 auto; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--black);
+  background: var(--lime);
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 28px;
+}
+
+h1 {
+  font-size: clamp(32px, 5.5vw, 52px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: var(--black);
+  margin-bottom: 20px;
+}
+h1 em {
+  font-style: normal;
+  position: relative;
+  display: inline-block;
+}
+h1 em::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--lime);
+  border-radius: 2px;
+}
+
+.hero-sub {
+  font-size: 17px;
+  color: var(--gray-600);
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto 40px;
+}
+
+/* URL INPUT */
+.url-block { max-width: 540px; margin: 0 auto; }
+.url-wrap {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.url-input {
+  flex: 1;
+  height: 50px;
+  border: 1.5px solid var(--gray-100);
+  border-radius: 8px;
+  padding: 0 16px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: var(--black);
+  background: var(--white);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.url-input:focus { border-color: var(--black); }
+.url-input::placeholder { color: var(--gray-400); }
+.url-btn {
+  height: 50px;
+  padding: 0 22px;
+  background: var(--black);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+.url-btn:hover { opacity: 0.82; }
+.url-note { font-size: 12px; color: var(--gray-400); }
+
+/* ── ANTES/DEPOIS ── */
+.ba-section {
+  padding: 0 24px 72px;
+}
+.ba-inner { max-width: 760px; margin: 0 auto; }
+
+.ba-labels {
+  display: grid;
+  grid-template-columns: 1fr 44px 1fr;
+  margin-bottom: 8px;
+}
+.ba-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.ba-tag.b { color: var(--red); }
+.ba-tag.a { color: var(--green); text-align: right; }
+
+.ba-grid {
+  display: grid;
+  grid-template-columns: 1fr 44px 1fr;
+  align-items: stretch;
+}
+.ba-card {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--gray-100);
+}
+.ba-card.before { border-color: #f0c4bf; }
+.ba-card.after  { border-color: #b8deca; }
+
+.ba-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+}
+.ba-bar.before { background: #fdf2f1; border-bottom: 1px solid #f0c4bf; }
+.ba-bar.after  { background: #edf6f1; border-bottom: 1px solid #b8deca; }
+.ba-dots { display: flex; gap: 4px; }
+.ba-dot { width: 8px; height: 8px; border-radius: 50%; }
+.ba-dot.r { background: #e0a0a0; }
+.ba-dot.g { background: #90d4a8; }
+.ba-dot.n { background: var(--gray-100); }
+.ba-url-bar { flex: 1; height: 16px; background: rgba(0,0,0,0.07); border-radius: 4px; }
+
+.ba-body { padding: 14px; background: var(--white); }
+
+/* before mocks */
+.m-img { width:100%; height:68px; background:var(--gray-50); border-radius:6px; margin-bottom:10px; display:flex; align-items:center; justify-content:center; }
+.m-img svg { opacity: 0.2; }
+.m-line { height:8px; background:var(--gray-100); border-radius:3px; margin-bottom:6px; }
+.m-price { height:10px; width:32%; background:var(--gray-100); border-radius:3px; margin-bottom:10px; }
+.m-btn-bad { background:var(--gray-100); border-radius:5px; padding:8px; text-align:center; font-size:11px; font-weight:600; color:var(--gray-400); margin-bottom:12px; }
+
+/* after mocks */
+.m-eyebrow { height:16px; width:58%; background:var(--green-light); border-radius:10px; margin-bottom:8px; }
+.m-h1a { height:10px; background:var(--black); border-radius:3px; margin-bottom:4px; }
+.m-h1b { height:10px; width:72%; background:var(--black); border-radius:3px; margin-bottom:10px; }
+.m-sub  { height:7px; background:var(--gray-100); border-radius:3px; margin-bottom:3px; }
+.m-sub.s { width:80%; margin-bottom:10px; }
+.m-price-row { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
+.m-price-big { height:16px; width:28%; background:var(--black); border-radius:3px; }
+.m-price-sm  { height:8px; width:40%; background:var(--gray-100); border-radius:3px; }
+.m-btn-good { background:var(--green); border-radius:5px; padding:8px; text-align:center; font-size:10px; font-weight:600; color:white; margin-bottom:8px; }
+.m-trust { display:flex; gap:5px; margin-bottom:10px; }
+.m-trust-pill { height:14px; flex:1; background:var(--green-light); border-radius:8px; }
+.m-benefits { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; margin-bottom:8px; }
+.m-benefit { background:#f0f8f4; border-radius:5px; padding:6px; }
+.m-b-icon { width:12px; height:12px; background:var(--green-light); border-radius:50%; border:1.5px solid #b8deca; margin-bottom:4px; }
+.m-b-line { height:5px; background:#b8deca; border-radius:2px; margin-bottom:3px; }
+.m-b-line.s { width:62%; background:var(--gray-100); }
+.m-reviews { display:grid; grid-template-columns:1fr 1fr; gap:4px; }
+.m-review { background:var(--gray-50); border-radius:5px; padding:6px; }
+.m-stars { height:6px; width:48%; background:#f0a500; border-radius:2px; margin-bottom:4px; }
+.m-r-line { height:5px; background:var(--gray-100); border-radius:2px; margin-bottom:3px; }
+
+/* annotations */
+.annots { margin-top:10px; padding-top:10px; }
+.annots.b { border-top:1px solid #f0c4bf; }
+.annots.a { border-top:1px solid #b8deca; }
+.annot { display:flex; gap:7px; align-items:flex-start; margin-bottom:5px; }
+.annot-icon { width:15px; height:15px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+.annot-icon.red { background:var(--red); }
+.annot-icon.green { background:var(--green); }
+.annot-icon svg { width:8px; height:8px; }
+.annot-text { font-size:10px; line-height:1.4; }
+.annot-text.red { color:var(--red); }
+.annot-text.green { color:var(--green); font-weight:500; }
+
+.ba-arrow { display:flex; align-items:center; justify-content:center; font-size:20px; color:var(--gray-400); }
+.ba-caption { text-align:center; font-size:11px; color:var(--gray-400); margin-top:10px; }
+
+/* ── DIVIDER ── */
+hr.div {
+  max-width: 760px;
+  margin: 0 auto;
+  border: none;
+  border-top: 1px solid var(--gray-100);
+}
+
+/* ── SECTIONS ── */
+.section { padding: 72px 24px; }
+.s-inner { max-width: 760px; margin: 0 auto; }
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 10px;
+}
+h2 {
+  font-size: clamp(22px, 3.5vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 40px;
+}
+
+/* ── COMO FUNCIONA ── */
+.steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--gray-100); border: 1px solid var(--gray-100); border-radius: 10px; overflow: hidden; }
+.step { background: var(--white); padding: 28px 24px; }
+.step-num { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--gray-400); margin-bottom: 14px; }
+.step-title { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+.step-desc { font-size: 13px; color: var(--gray-600); line-height: 1.65; }
+
+/* ── O QUE VOCÊ RECEBE ── */
+.deliverables { display: flex; flex-direction: column; gap: 1px; background: var(--gray-100); border: 1px solid var(--gray-100); border-radius: 10px; overflow: hidden; }
+.deliverable {
+  background: var(--white);
+  padding: 24px 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+.del-check {
+  width: 28px;
+  height: 28px;
+  background: var(--lime);
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.del-check svg { width: 14px; height: 14px; }
+.del-title { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 4px; }
+.del-desc { font-size: 13px; color: var(--gray-600); line-height: 1.6; }
+
+/* ── CASE ── */
+.case-block {
+  background: var(--gray-50);
+  border-radius: 12px;
+  padding: 40px;
+  border: 1px solid var(--gray-100);
+}
+.case-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 16px; }
+.case-quote { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.4; margin-bottom: 16px; }
+.case-author { font-size: 13px; color: var(--gray-600); }
+.case-metrics {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--gray-100);
+}
+.metric-num { font-size: 32px; font-weight: 800; letter-spacing: -0.04em; color: var(--black); line-height: 1; margin-bottom: 4px; }
+.metric-num span { color: var(--lime-dark); }
+.metric-label { font-size: 12px; color: var(--gray-600); }
+
+/* ── CTA FINAL ── */
+.cta-final {
+  background: var(--black);
+  padding: 96px 24px;
+  text-align: center;
+}
+.cta-final h2 { color: var(--white); margin-bottom: 12px; }
+.cta-final p { font-size: 16px; color: rgba(255,255,255,0.5); margin-bottom: 40px; max-width: 460px; margin-left: auto; margin-right: auto; }
+.cta-final .url-input {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.15);
+  color: var(--white);
+}
+.cta-final .url-input:focus { border-color: rgba(255,255,255,0.5); }
+.cta-final .url-input::placeholder { color: rgba(255,255,255,0.3); }
+.cta-final .url-btn { background: var(--lime); color: var(--black); }
+.cta-final .url-btn:hover { opacity: 0.88; }
+.cta-final .url-note { color: rgba(255,255,255,0.3); margin-bottom: 24px; }
+.cta-secondary {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 1px;
+  transition: color 0.15s;
+  cursor: pointer;
+}
+.cta-secondary:hover { color: rgba(255,255,255,0.8); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--gray-100);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-inner { max-width: 760px; margin: 0 auto; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+footer p { font-size: 12px; color: var(--gray-400); }
+footer a { font-size: 12px; color: var(--gray-400); }
+footer a:hover { color: var(--black); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 620px) {
+  .nav-links a:not(.nav-cta) { display: none; }
+  .steps { grid-template-columns: 1fr; }
+  .case-metrics { grid-template-columns: 1fr 1fr; }
+  .ba-grid { grid-template-columns: 1fr 32px 1fr; }
+  .ba-arrow { font-size: 16px; }
+  h1 { font-size: 30px; }
+  .url-wrap { flex-direction: column; }
+  .cta-final { padding: 64px 24px; }
+  footer .footer-inner { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <span class="check-mark">
+        <svg viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5L4.5 8.5L9.5 2.5" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      CheckOut
+    </div>
+    <div class="nav-links">
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#entrega">O que você recebe</a>
+      <a href="#contato" class="nav-cta">Solicitar diagnóstico</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="badge">Diagnóstico gratuito · sem cadastro</div>
+    <h1>Sua página de produto<br>pode vender <em>muito mais.</em></h1>
+    <p class="hero-sub">
+      Analisamos o que está travando a conversão e entregamos uma página de produto de alta performance — pronta para aplicar.
+    </p>
+    <div class="url-block">
+      <div class="url-wrap">
+        <input type="text" class="url-input" id="hero-url" placeholder="https://sujaloja.com.br/produto/...">
+        <button class="url-btn" onclick="handleUrl('hero-url')">Quero meu diagnóstico →</button>
+      </div>
+      <p class="url-note">Sem cadastro. Sem compromisso. Qualquer loja pública.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ANTES/DEPOIS -->
+<section class="ba-section">
+  <div class="ba-inner">
+    <div class="ba-labels">
+      <div class="ba-tag b">✗ Antes — página original</div>
+      <div></div>
+      <div class="ba-tag a">✓ Depois — CheckOut aplicado</div>
+    </div>
+    <div class="ba-grid">
+
+      <!-- BEFORE -->
+      <div class="ba-card before">
+        <div class="ba-bar before">
+          <div class="ba-dots"><div class="ba-dot r"></div><div class="ba-dot n"></div><div class="ba-dot n"></div></div>
+          <div class="ba-url-bar"></div>
+        </div>
+        <div class="ba-body">
+          <div class="m-img">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="3" width="18" height="18" rx="2" stroke="#9a9a94" stroke-width="1.5"/>
+              <circle cx="8.5" cy="8.5" r="1.5" stroke="#9a9a94" stroke-width="1.5"/>
+              <path d="M21 15l-5-5L5 21" stroke="#9a9a94" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="m-line" style="width:88%"></div>
+          <div class="m-line" style="width:100%"></div>
+          <div class="m-line" style="width:72%"></div>
+          <div class="m-price"></div>
+          <div class="m-btn-bad">Comprar</div>
+          <div class="annots b">
+            <div class="annot">
+              <div class="annot-icon red"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+              <div class="annot-text red">CTA genérico, sem argumento</div>
+            </div>
+            <div class="annot">
+              <div class="annot-icon red"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+              <div class="annot-text red">Sem prova social visível</div>
+            </div>
+            <div class="annot">
+              <div class="annot-icon" style="background:var(--amber)"><svg viewBox="0 0 8 8" fill="none"><path d="M4 2v3M4 6.5v.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+              <div class="annot-text" style="color:var(--amber)">Diferencial enterrado na descrição</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARROW -->
+      <div class="ba-arrow">→</div>
+
+      <!-- AFTER -->
+      <div class="ba-card after">
+        <div class="ba-bar after">
+          <div class="ba-dots"><div class="ba-dot n"></div><div class="ba-dot n"></div><div class="ba-dot g"></div></div>
+          <div class="ba-url-bar"></div>
+        </div>
+        <div class="ba-body">
+          <div class="m-eyebrow"></div>
+          <div class="m-h1a"></div>
+          <div class="m-h1b"></div>
+          <div class="m-sub"></div>
+          <div class="m-sub s"></div>
+          <div class="m-price-row"><div class="m-price-big"></div><div class="m-price-sm"></div></div>
+          <div class="m-btn-good">Quero minha pele hidratada →</div>
+          <div class="m-trust"><div class="m-trust-pill"></div><div class="m-trust-pill"></div><div class="m-trust-pill"></div></div>
+          <div class="m-benefits">
+            <div class="m-benefit"><div class="m-b-icon"></div><div class="m-b-line"></div><div class="m-b-line s"></div></div>
+            <div class="m-benefit"><div class="m-b-icon"></div><div class="m-b-line"></div><div class="m-b-line s"></div></div>
+            <div class="m-benefit"><div class="m-b-icon"></div><div class="m-b-line"></div><div class="m-b-line s"></div></div>
+          </div>
+          <div class="m-reviews">
+            <div class="m-review"><div class="m-stars"></div><div class="m-r-line"></div><div class="m-r-line" style="width:68%"></div></div>
+            <div class="m-review"><div class="m-stars"></div><div class="m-r-line"></div><div class="m-r-line" style="width:68%"></div></div>
+          </div>
+          <div class="annots a">
+            <div class="annot">
+              <div class="annot-icon green"><svg viewBox="0 0 8 8" fill="none"><path d="M1 4l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="annot-text green">CTA orientado ao benefício</div>
+            </div>
+            <div class="annot">
+              <div class="annot-icon green"><svg viewBox="0 0 8 8" fill="none"><path d="M1 4l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="annot-text green">Depoimentos e prova social</div>
+            </div>
+            <div class="annot">
+              <div class="annot-icon green"><svg viewBox="0 0 8 8" fill="none"><path d="M1 4l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="annot-text green">Diferencial no hero, não na descrição</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="ba-caption">Caso real: RAAVI Diabet Hidra · Diabetic Center</p>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- COMO FUNCIONA -->
+<section class="section" id="como-funciona">
+  <div class="s-inner">
+    <div class="eyebrow">Como funciona</div>
+    <h2>Do diagnóstico à página<br>pronta para converter.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Diagnóstico gratuito</div>
+        <p class="step-desc">Cole a URL do produto. Nossa equipe analisa CTA, copy, hierarquia e prova social — e devolve os problemas rankeados por impacto.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Página de alta performance</div>
+        <p class="step-desc">Com base no diagnóstico, entregamos a página reescrita e reorganizada: headline forte, CTA certo, estrutura que converte.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Flyer digital incluso</div>
+        <p class="step-desc">O layout otimizado em PNG, pronto para enviar por WhatsApp, e-mail ou apresentar para o time. Sua página nova, visualmente documentada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- O QUE VOCÊ RECEBE -->
+<section class="section" id="entrega">
+  <div class="s-inner">
+    <div class="eyebrow">O que você recebe</div>
+    <h2>Tudo que precisa para<br>sua página performar.</h2>
+    <div class="deliverables">
+      <div class="deliverable">
+        <div class="del-check">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="del-title">Diagnóstico gratuito</div>
+          <p class="del-desc">Análise completa com os problemas da página rankeados por impacto em conversão — o que mudar e por quê.</p>
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="del-check">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="del-title">Página de produto de alta performance</div>
+          <p class="del-desc">Copy reescrito, hierarquia corrigida, CTA validado. Estrutura que guia o visitante direto para a compra.</p>
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="del-check">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="del-title">Flyer digital em PNG — bônus incluso</div>
+          <p class="del-desc">O layout otimizado em alta resolução, pronto para enviar por WhatsApp, usar em e-mail marketing ou apresentar internamente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- CASE -->
+<section class="section">
+  <div class="s-inner">
+    <div class="eyebrow">Case</div>
+    <div class="case-block">
+      <div class="case-label">Diabetic Center · RAAVI Diabet Hidra</div>
+      <p class="case-quote">"CTA sem argumento, zero prova social e o diferencial do produto enterrado na descrição. Três problemas críticos — todos corrigidos na entrega do CheckOut."</p>
+      <p class="case-author">Diagnóstico CheckOut · São Paulo</p>
+      <div class="case-metrics">
+        <div>
+          <div class="metric-num">3<span>×</span></div>
+          <div class="metric-label">problemas críticos identificados</div>
+        </div>
+        <div>
+          <div class="metric-num">48<span>h</span></div>
+          <div class="metric-label">da URL à entrega completa</div>
+        </div>
+        <div>
+          <div class="metric-num">+<span>1</span></div>
+          <div class="metric-label">flyer PNG entregue para distribuição</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final" id="contato">
+  <div style="max-width:580px; margin:0 auto;">
+    <h2>Quantas vendas sua página<br>perdeu hoje?</h2>
+    <p>O diagnóstico é gratuito. A página otimizada, não — mas o retorno aparece rápido.</p>
+    <div class="url-block">
+      <div class="url-wrap">
+        <input type="text" class="url-input" id="footer-url" placeholder="https://sujaloja.com.br/produto/...">
+        <button class="url-btn" onclick="handleUrl('footer-url')">Quero meu diagnóstico →</button>
+      </div>
+      <p class="url-note">Sem cadastro. Sem compromisso.</p>
+    </div>
+    <p style="margin-top:20px;">
+      <span class="cta-secondary" onclick="window.open('https://wa.me/5511971742321','_blank')">Prefiro falar com a equipe →</span>
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p>CheckOut · Um serviço especializado em conversão para e-commerce</p>
+    <a href="https://granulare.com.br" target="_blank">granulare.com.br</a>
+  </div>
+</footer>
+
+<script>
+function handleUrl(id) {
+  const val = document.getElementById(id).value.trim();
+  if (!val || !val.startsWith('http')) {
+    document.getElementById(id).focus();
+    document.getElementById(id).style.borderColor = '#d13030';
+    setTimeout(() => document.getElementById(id).style.borderColor = '', 1500);
+    return;
+  }
+  window.open('https://wa.me/5511971742321?text=Olá! Quero o diagnóstico CheckOut para: ' + encodeURIComponent(val), '_blank');
+}
+document.querySelectorAll('.url-input').forEach(el => {
+  el.addEventListener('keydown', e => { if (e.key === 'Enter') { const btn = el.nextElementSibling; if (btn) btn.click(); } });
+});
+</script>
+
+</body>
+</html>
